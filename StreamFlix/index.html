@@ -1,28 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>WebCraft Projects</title>
 </head>
-<body>
+
+<body class="bg-[var(--primary-color)] text-[var(--text-color)] font-sans">
     <!-- Header -->
     <header>
-
+        <div class="container mx-auto p-6 flex justify-between items-center">
+            <img src="./assets/logo/logo-brand.png" alt="WebCraft Logo" class="h-30">
+            <nav aria-label="Main Navigation">
+                <ul class="flex space-x-4">
+                    <li aria-labelledby="home"><a href="#"
+                            class=" hover:font-semibold text-[var(--text-color)]">Accueil</a></li>
+                    <li aria-labelledby="about"><a href="#" class=" hover:font-semibold text-[var(--text-color)]">À
+                            propos</a></li>
+                    <li aria-labelledby="contact"><a href="#"
+                            class=" hover:font-semibold text-[var(--text-color)]">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
     <!-- Hero Section -->
-     <section>
+    <section>
+        <div class="container mx-auto p-6 bg-image-hero bg-cover bg-center text-center">
+            <div class="overlay bg-[var(--primary-color)]/50 rounded-md py-5 px-6 w-[500px] mx-auto">
+            <h1 class="text-4xl font-bold mb-10">Donnez vie à vos idées avec un design qui marque les esprits</h1>
+            <p class="text-lg font-medium text-[var(--secondary-text-color)]">Chez Webcraft, nous transformons vos projets en expériences digitales uniques. Spécialisés dans le webdesign, nous
+            allions créativité et performance pour façonner des sites modernes, esthétiques et fonctionnels</p>
+        </div>
+        </div>
+    </section>
+    <!-- Portfolio section -->
+    <section aria-label="Portfolio">
+        <div class="container portfolio-section-wrapper mx-auto p-6">
+            <h3 class="text-2xl font-bold mb-4">Nos Projets Récents</h3>
+            <!-- Card Component -->
+            <div id="projects-container" class="grid grid-flow-col grid-rows-4 gap-3">
+        </div>
+        </section>
+    </div>
+    <!-- Footer -->
+    <footer>
 
-     </section>
-     <!-- Portfolio section -->
-     <section>
-
-     </section>
-     <!-- Footer -->
-     <footer>
-
-     </footer>
+    </footer>
 </body>
+<script src="./js/script.js"></script>
+
 </html>

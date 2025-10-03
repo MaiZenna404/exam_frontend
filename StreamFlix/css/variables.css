@@ -1,21 +1,19 @@
 /* CSS Variables for StreamFlix */
 :root {
   /* Color Variables */
-  --primary-color: #e50914;
-  --secondary-color: #221f1f;
-  --accent-color: #f5f5f1;
-  --text-primary: #ffffff;
-  --text-secondary: #b3b3b3;
-  --background-dark: #141414;
-  --background-light: #2f2f2f;
+   --primary-color : #FFEAB6;
+  --text-color : #1c1c1c;
+  --secondary-text-color : #3A3A3A;
+  --section-bg-color : #F5F5F5;
+  --pure-white : #FFFFFF;
 
-  /* Brand Colors */
-  --netflix-red: #e50914;
-  --netflix-black: #000000;
-  --netflix-dark-gray: #221f1f;
-  --netflix-gray: #8c8c8c;
-
-  /* Status Colors */
+  /* Accent Colors */
+  --warm-orange: #F2784B;
+  --vibrant-violet: #6C63FF;
+  --calm-teal: #4BA3C3;
+  --soft-pink: #FF6F61;
+  
+  /* Badges Colors */
   --success-color: #46d369;
   --warning-color: #ffb800;
   --error-color: #ff4757;
