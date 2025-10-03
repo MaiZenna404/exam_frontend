@@ -8,50 +8,96 @@
     <link rel="stylesheet" href="./css/style.css">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="./js/script.js" defer></script>
     <title>WebCraft Projects</title>
 </head>
-
 <body class="bg-[var(--primary-color)] text-[var(--text-color)] font-sans">
     <!-- Header -->
     <header>
-        <div class="container mx-auto p-6 flex justify-between items-center">
-            <img src="./assets/logo/logo-brand.png" alt="WebCraft Logo" class="h-30">
-            <nav aria-label="Main Navigation">
-                <ul class="flex space-x-4">
-                    <li aria-labelledby="home"><a href="#"
-                            class=" hover:font-semibold text-[var(--text-color)]">Accueil</a></li>
-                    <li aria-labelledby="about"><a href="#" class=" hover:font-semibold text-[var(--text-color)]">À
-                            propos</a></li>
-                    <li aria-labelledby="contact"><a href="#"
-                            class=" hover:font-semibold text-[var(--text-color)]">Contact</a></li>
+        <div class="container mx-auto p-6 flex flex-col md:flex-row justify-between items-center">
+            <img src="./assets/logo/logo-brand.png" alt="WebCraft Logo" class="h-20 md:h-30">
+            <nav aria-label="Main Navigation" class="mt-4 md:mt-0">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
+                    <li aria-label="Accueil"><a href="#"
+                            class="hover:font-semibold text-[var(--text-color)]">Accueil</a></li>
+                    <li aria-label="À propos"><a href="./pages/about.html"
+                            class="hover:font-semibold text-[var(--text-color)]">À propos</a></li>
+                    <li><a href="./pages/contacts.html" aria-label="Contact"
+                            class="hover:font-semibold text-[var(--text-color)]">Contact</a></li>
                 </ul>
             </nav>
         </div>
     </header>
     <!-- Hero Section -->
-    <section>
-        <div class="container mx-auto p-6 bg-image-hero bg-cover bg-center text-center">
-            <div class="overlay bg-[var(--primary-color)]/50 rounded-md py-5 px-6 w-[500px] mx-auto">
-            <h1 class="text-4xl font-bold mb-10">Donnez vie à vos idées avec un design qui marque les esprits</h1>
-            <p class="text-lg font-medium text-[var(--secondary-text-color)]">Chez Webcraft, nous transformons vos projets en expériences digitales uniques. Spécialisés dans le webdesign, nous
-            allions créativité et performance pour façonner des sites modernes, esthétiques et fonctionnels</p>
-        </div>
-        </div>
-    </section>
-    <!-- Portfolio section -->
-    <section aria-label="Portfolio">
-        <div class="container portfolio-section-wrapper mx-auto p-6">
-            <h3 class="text-2xl font-bold mb-4">Nos Projets Récents</h3>
-            <!-- Card Component -->
-            <div id="projects-container" class="grid grid-flow-col grid-rows-4 gap-3">
-        </div>
+    <main>
+        <section>
+            <div class="container mx-auto p-6 bg-image-hero bg-cover bg-center text-center">
+                <div class="overlay bg-[var(--primary-color)]/50 rounded-md py-5 px-6 w-full md:w-[500px] mx-auto">
+                    <h1 class="text-2xl md:text-4xl font-bold mb-6 md:mb-10">Donnez vie à vos idées avec un design qui
+                        marque les esprits</h1>
+                    <p class="text-sm md:text-lg font-medium text-[var(--secondary-text-color)]">Chez Webcraft, nous
+                        transformons vos projets en expériences digitales uniques. Spécialisés dans le webdesign, nous
+                        allions créativité et performance pour façonner des sites modernes, esthétiques et
+                        fonctionnels</p>
+                </div>
+            </div>
         </section>
-    </div>
+        <!-- Portfolio section -->
+        <section aria-label="Portfolio">
+            <div class="container portfolio-section-wrapper mx-auto p-6">
+                <div class="portfolio-header flex flex-col md:flex-row justify-between items-center mb-6">
+                    <div class="portfolio-intro-text text-center md:text-left">
+                        <h3 class="text-xl md:text-2xl font-bold mb-2">Nos Projets Récents</h3>
+                        <p class="text-sm md:text-md text-[var(--secondary-text-color)] mb-3">Découvrez nos derniers
+                            travaux et laissez-vous inspirer par notre créativité.</p>
+                    </div>
+                    <!-- SearchBar -->
+                    <div class="search-bar mt-4 md:mt-0 mb-4 md:mb-0">
+                        <form class="flex items-center space-x-2" role="search">
+                            <input type="text" id="search-input" placeholder="Rechercher une techno..."
+                                aria-label="Search"
+                                class="flex-grow p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--calm-teal)]">
+                        </form>
+                    </div>
+                </div>
+                <!-- Card Component -->
+                <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                </div>
+                <div id="no-items-found"
+                    class="hidden text-center p-4 bg-[var(--primary-color)] rounded-md shadow-md mt-4">
+                    <p class="text-lg font-medium">Désolé, aucun projet ne correspond à votre recherche...</p>
+                </div>
+            </div>
+        </section>
+    </main>
     <!-- Footer -->
-    <footer>
-
+    <footer class="bg-[var(--warm-orange)] p-5">
+        <div
+            class="social-networks flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-2 text-center">
+            <a href="#" class="text-[var(--secondary-text-color)]">
+                <img src="./assets/icons/facebook-svgrepo-com.svg" alt="Facebook Icon" class="h-6 w-6 inline-block">
+            </a>
+            <a href="#" class="text-[var(--secondary-text-color)]">
+                <img src="./assets/icons/linkedin-svgrepo-com.svg" alt="LinkedIn Icon" class="h-6 w-6 inline-block">
+            </a>
+            <a href="#" class="text-[var(--secondary-text-color)]">
+                <img src="./assets/icons/instagram-svgrepo-com(1).svg" alt="Instagram Icon"
+                    class="h-6 w-6 inline-block">
+            </a>
+        </div>
+        <div class="container mx-auto p-6 text-center text-sm text-[var(--secondary-text-color)] font-bold">
+            &copy; 2024 WebCraft. Tous droits réservés.
+        </div>
     </footer>
+    <!-- Modal Component -->
+    <div id="modal" class="fixed inset-0 hidden bg-black bg-opacity-50 z-50">
+        <div
+            class="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full text-center relative flex items-center justify-center">
+            <button id="close-modal"
+                class="absolute top-2 right-2 text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            <div id="modal-body" class="text-lg font-medium text-gray-800"></div>
+        </div>
+    </div>
 </body>
-<script src="./js/script.js"></script>
 
 </html>

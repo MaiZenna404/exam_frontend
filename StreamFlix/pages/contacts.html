@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <title>À propos - WebCraft Projects</title>
+    <title>Contact Us - WebCraft Projects</title>
 </head>
 <body class="bg-[var(--primary-color)] text-[var(--text-color)] font-sans">
     <!-- Header -->
@@ -18,7 +19,7 @@
                 <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4">
                     <li aria-labelledby="home"><a href="../index.html"
                             class="hover:font-semibold text-[var(--text-color)]">Accueil</a></li>
-                    <li aria-labelledby="about" aria-label="current-page"><a href="about.html"
+                    <li aria-labelledby="about"><a href="about.html"
                             class="hover:font-semibold text-[var(--text-color)]">À propos</a></li>
                     <li aria-labelledby="contact"><a href="contacts.html"
                             class="hover:font-semibold text-[var(--text-color)]">Contact</a></li>
@@ -26,44 +27,44 @@
             </nav>
         </div>
     </header>
+    <!-- Hero Section -->
     <main>
-        <section aria-label="About Us">
-            <div class="container mx-auto p-6 bg-image-hero-about-us bg-cover bg-center text-center">
+        <section>
+            <div class="container mx-auto p-6 bg-image-hero-contacts bg-cover bg-center text-center">
                 <div class="overlay bg-[var(--primary-color)]/50 rounded-md py-5 px-6 w-full md:w-[500px] mx-auto">
-                    <h2 class="text-2xl md:text-3xl font-bold mb-4">À propos de nous</h2>
-                    <p class="text-sm md:text-lg text-[var(--secondary-text-color)]">Nous sommes une équipe de développeurs passionnés, dédiée à la création de solutions web innovantes.</p>
+                    <h1 class="text-2xl md:text-4xl font-bold mb-6 md:mb-10">Des questions ?</h1>
+                    <p class="text-sm md:text-lg text-[var(--secondary-text-color)]">Nous sommes là pour répondre à toutes vos questions et discuter de vos projets.</p>
                 </div>
             </div>
         </section>
-        <section aria-label="Key Figures">
-            <div class="container mx-auto p-6 text-semibold text-[var(--secondary-text-color)]">
-                <h3 class="text-xl md:text-2xl font-bold mb-4">Nos Chiffres clés</h3>
-                <div class="card-container grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                    <!-- Card Component -->
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col items-center">
-                        <span class="text-4xl mb-2">🚀</span>
-                        <p class="text-center">+120 projets réalisés – des sites modernes et performants livrés à nos clients</p>
+        <section>
+            <div class="container mx-auto p-6">
+                <h3 class="text-xl md:text-2xl font-bold mb-4">Formulaire de Contact</h3>
+                <form id="contact-form" class="bg-white rounded-lg shadow-md p-6">
+                    <div class="mb-4">
+                        <label for="name" class="block text-sm font-medium text-gray-700">Nom & Prénom</label>
+                        <input type="text" id="name" name="name" placeholder="Dupont Jean"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--calm-teal)] required:">
                     </div>
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col items-center">
-                        <span class="text-4xl text-center">🌍</span>
-                        <p class="text-center">30 clients internationaux - accompagnement de startups et entreprises en Europe et en Asie</p>
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" id="email" name="email"
+                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" required
+                            placeholder="nom.prenom@gmail.com"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--calm-teal)] ">
                     </div>
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col items-center">
-                        <span class="text-4xl mb-2">⭐</span>
-                        <p class="text-center">95% de satisfaction client - nos partenaires nous recommandent</p>
+                    <div class="mb-4">
+                        <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Écrivez votre requête ici"
+                            class="mt-1 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--calm-teal)] required"></textarea>
                     </div>
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col items-center">
-                        <span class="text-4xl mb-2">⏱️</span>
-                        <p class="text-center">4 semaines en moyenne - pour transformer une idée en site fonctionnel</p>
-                    </div>
-                    <div class="bg-white rounded-lg shadow-md p-4 mb-4 flex flex-col items-center">
-                        <span class="text-4xl mb-2">🎨</span>
-                        <p class="text-center">100% designs sur mesure - chaque projet est pensé pour refléter une identité unique</p>
-                    </div>
-                </div>
+                    <button id="submit-button" type="submit"
+                        class="px-4 py-2 bg-[var(--calm-teal)] text-white font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--calm-teal)] cursor-pointer hover:bg-[var(--info-color)]">Envoyer</button>
+                </form>
             </div>
         </section>
     </main>
+    <!-- Footer -->
     <footer class="bg-[var(--warm-orange)] p-5">
         <div class="social-networks flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-2 text-center">
             <a href="#" class="text-[var(--secondary-text-color)]">
@@ -81,4 +82,5 @@
         </div>
     </footer>
 </body>
+<script src="../js/script.js"></script>
 </html>
