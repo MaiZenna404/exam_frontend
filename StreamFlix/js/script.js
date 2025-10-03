@@ -1,233 +1,114 @@
-// Function to fetch projects from the JSON file - CORS ERROR ENCOUNTERED
-/*const BASE_URL = "https://gabistam.github.io/Demo_API/data/projects.json"
-
-// Fetch projects from the JSON file
-async function fetchProjects() {
-    try { 
-        const response = await fetch(`${BASE_URL}`, {
-            method: 'GET', 
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            }
-        });
-        if (!response.ok) {
-            throw new Error(`Error during fetch: ${response.status}`);
-        }
-
-        const data = await response.json();
-        return data;
-    }
-    catch(err) {
-        console.error('Fetch error: ', err);
-        throw err;
-    }
-}
-*/
-
-// Path to local json file to avoid CORS issues during development
+// --- Fetch local JSON ---
 const DATA_JSON_FILE = "./data.json";
 
-// Fetch projects from the local JSON file
 async function fetchProjects() {
-    try {
-        const response = await fetch(`${DATA_JSON_FILE}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-        });
-        if (!response.ok) {
-            throw new Error(`Error fetching projects: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.projects;
-    } catch (error) {
-        console.error("Error fetching projects:", error);
-        throw error;
-    }
+  const resp = await fetch(DATA_JSON_FILE, {
+    headers: { "Content-Type": "application/json", Accept: "application/json" },
+  });
+  if (!resp.ok) throw new Error(`Error fetching projects: ${resp.status}`);
+  const data = await resp.json();
+  return data.projects;
 }
 
-// Render the portfolio section automatically with fetched projects
-document.addEventListener("DOMContentLoaded", async () => {
-    const portfolioSection = document.querySelector("#projects-container");
-    try {
-        const fetchedProjects = await fetchProjects();
-        fetchedProjects.forEach((project) => {
-            const projectElement = document.createElement("div");
-            projectElement.classList.add("project-item");
-            projectElement.innerHTML = `
-                <div class="card p-4 shadow-lg bg-white rounded-lg max-w-fit">
-                    <h3 class="p-3 font-semibold">${project.title}</h3>
-                    <img src="${project.image}" alt="icône ${project.title
-                }" class="w-full h-48 object-cover mb-4 rounded my-5">
-                    <p class="p-3">${project.description}</p>
-                    <div class="badges-technologies">
-                    ${project.technologies
-                    .map(
-                        (techno) => `
-        <span class="inline-flex items-center rounded-md text-[var(--text-color)] bg-[var(--calm-teal)] px-2 py-1 text-xs font-medium inset-ring inset-ring-gray-400/20">
-            ${techno}
-        </span>
-    `
-                    )
-                    .join("")}
-                    </div>
-                </div>
-            `;
-            portfolioSection.appendChild(projectElement);
-        });
-    } catch (error) {
-        console.error("Error rendering projects:", error);
-    }
-});
-
-// Verify if .project-item elements exist and are clickable
-async function verifyProjectItems() {
-    const portfolioSection = document.querySelector("#projects-container");
-    try {
-        const fetchedProjects = await fetchProjects();
-        fetchedProjects.forEach((project) => {
-            const projectElement = document.createElement("div");
-            projectElement.classList.add("project-item");
-            projectElement.innerHTML = `
-                <div class="card p-4 shadow-lg bg-white rounded-lg max-w-fit">
-                    <h3 class="p-3 font-semibold">${project.title}</h3>
-                    <img src="${project.image}" alt="icône ${project.title}" class="w-full h-48 object-cover mb-4 rounded my-5">
-                    <p class="p-3">${project.description}</p>
-                    <div class="badges-technologies">
-                        ${project.technologies
-                            .map(
-                                (techno) => `
-                                    <span class="inline-flex items-center rounded-md text-[var(--text-color)] bg-[var(--calm-teal)] px-2 py-1 text-xs font-medium inset-ring inset-ring-gray-400/20">
-                                        ${techno}
-                                    </span>
-                                `
-                            )
-                            .join("")}
-                    </div>
-                </div>
-            `;
-            portfolioSection.appendChild(projectElement);
-
-            // Add a direct click listener for debugging
-            projectElement.addEventListener("click", () => {
-                // Open modal with project details
-                const modalContent = `
-                    <h3>${project.title}</h3>
-                    <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover mb-4 rounded">
-                    <p>${project.description}</p>
-                    <p><strong>Technologies:</strong> ${project.technologies.join(", ")}</p>
-                `;
-                openModal(modalContent);
-            });
-        });
-    } catch (error) {
-        console.error("Error rendering projects:", error);
-    }
-}
-
-// Call the function to verify project items
-verifyProjectItems();
-
-// Searchbar for searching and filtering through technologies
-const searchInput = document.getElementById("search-input");
-searchInput.addEventListener("input", (event) => {
-    const searchTerm = event.target.value.toLowerCase();
-    const projectItems = document.querySelectorAll(".project-item");
-    let hasVisibleItem = false;
-
-    projectItems.forEach((item) => {
-        const techBadges = item.querySelectorAll(".badges-technologies span");
-        const hasMatch = Array.from(techBadges).some((badge) =>
-            badge.textContent.toLowerCase().includes(searchTerm)
-        );
-        item.style.display = hasMatch ? "block" : "none";
-        if (hasMatch) {
-            hasVisibleItem = true;
-        }
-    });
-
-    // Handle "No items found" if no items match
-    const noItemsFoundCard = document.getElementById("no-items-found");
-    if (!hasVisibleItem) {
-        noItemsFoundCard.classList.remove("hidden"); // Show the card
-    } else {
-        noItemsFoundCard.classList.add("hidden"); // Hide the card
-    }
-});
-
-// Validation for contact form (HTML5 validation used)
-document.getElementById("contact-form").addEventListener("submit", function (event) { 
-    const emailInput = document.getElementById("email");
-    const emailRegExPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if (!emailInput.value.match(emailRegExPattern)) {
-        event.preventDefault();
-        alert("Veuillez entrer une adresse email valide.");
-        return;
-    }
-
-    
-});
-
-// Modifier la validation du formulaire pour afficher la modale
-const contactForm = document.getElementById("contact-form");
-contactForm.addEventListener("submit", function (event) {
-    const emailInput = document.getElementById("email");
-    const emailRegExPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-    if (!emailInput.value.match(emailRegExPattern)) {
-        event.preventDefault();
-        alert("Veuillez entrer une adresse email valide.");
-        return;
-    }
-
-    // Si tout est valide, afficher la modale
-    alert("Formulaire valide !");
-});
-
-// Function to open the modal
+// --- Modal helpers ---
 function openModal(content) {
-    const modal = document.getElementById("modal");
-    const modalBody = document.getElementById("modal-body");
-    modalBody.innerHTML = content;
-    modal.classList.remove("hidden");
+  const modal = document.getElementById("modal");
+  const modalBody = document.getElementById("modal-body");
+  modalBody.innerHTML = content;
+  modal.classList.remove("hidden");
 }
 
-// Function to close the modal
 function closeModal() {
-    const modal = document.getElementById("modal");
-    if (modal) {
-        console.log("Closing modal"); // Debugging statement
-        modal.classList.add("hidden");
-    } else {
-        console.error("Modal not found in the DOM.");
-    }
+  const modal = document.getElementById("modal");
+  if (modal) modal.classList.add("hidden");
 }
 
-// Ensure DOM is fully loaded before attaching event listeners
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("DOM fully loaded"); // Debugging statement
+// --- Render + listeners ---
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM fully loaded");
 
-    const closeModalButton = document.querySelector('#close-modal');
-    const modal = document.getElementById("modal");
+  const portfolioSection = document.querySelector("#projects-container");
+  const closeModalButton = document.querySelector("#close-modal");
+  const modal = document.getElementById("modal");
 
-    if (closeModalButton) {
-        console.log("Close button found:", closeModalButton); // Debugging statement
-        closeModalButton.addEventListener("click", () => {
-            console.log("Close button clicked"); // Debugging statement
-            closeModal();
-        });
-    } else {
-        console.error("Close modal button not found in the DOM.");
-    }
+  // 1) Attache les listeners de fermeture de la modale
+  if (closeModalButton) {
+    closeModalButton.addEventListener("click", () => closeModal());
+  }
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal(); // click sur l’overlay
+  });
 
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            console.log("Modal background clicked"); // Debugging statement
-            closeModal();
-        }
+  // 2) Sécurise la validation du formulaire (si présent sur cette page)
+  const contactForm = document.getElementById("contact-form");
+  if (contactForm) {
+    contactForm.addEventListener("submit", (event) => {
+      const emailInput = document.getElementById("email");
+      const emailRegExPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailInput.value.match(emailRegExPattern)) {
+        event.preventDefault();
+        alert("Veuillez entrer une adresse email valide.");
+        return;
+      }
+      // Ici tu peux ouvrir une vraie modale de succès si tu veux
+      alert("Formulaire valide !");
     });
+  }
+
+  // 3) Rendu des projets (une seule fois)
+  try {
+    const projects = await fetchProjects();
+    projects.forEach((project) => {
+      const el = document.createElement("div");
+      el.className = "project-item";
+      el.innerHTML = `
+        <div class="card p-4 shadow-lg bg-white rounded-lg max-w-fit cursor-pointer">
+          <h3 class="p-3 font-semibold">${project.title}</h3>
+          <img src="${project.image}" alt="icône ${project.title}" class="w-full h-48 object-cover mb-4 rounded my-5">
+          <p class="p-3">${project.description}</p>
+          <div class="badges-technologies">
+            ${project.technologies
+              .map(
+                (t) => `
+                <span class="inline-flex items-center rounded-md text-[var(--text-color)] bg-[var(--calm-teal)] px-2 py-1 text-xs font-medium inset-ring inset-ring-gray-400/20">
+                  ${t}
+                </span>`
+              )
+              .join("")}
+          </div>
+        </div>`;
+      // Ouvre la modale au clic
+      el.addEventListener("click", () => {
+        const content = `
+          <h3 class="text-xl font-semibold mb-2">${project.title}</h3>
+          <img src="${project.image}" alt="${project.title}" class="w-full h-48 object-cover mb-4 rounded">
+          <p class="mb-2">${project.description}</p>
+          <p><strong>Technologies :</strong> ${project.technologies.join(", ")}</p>`;
+        openModal(content);
+      });
+      portfolioSection.appendChild(el);
+    });
+  } catch (e) {
+    console.error("Error rendering projects:", e);
+  }
+
+  // 4) Search bar (inchangé)
+  const searchInput = document.getElementById("search-input");
+  if (searchInput) {
+    searchInput.addEventListener("input", (event) => {
+      const searchTerm = event.target.value.toLowerCase();
+      const projectItems = document.querySelectorAll(".project-item");
+      let hasVisible = false;
+      projectItems.forEach((item) => {
+        const techBadges = item.querySelectorAll(".badges-technologies span");
+        const match = Array.from(techBadges).some((b) =>
+          b.textContent.toLowerCase().includes(searchTerm)
+        );
+        item.style.display = match ? "block" : "none";
+        if (match) hasVisible = true;
+      });
+      const noItems = document.getElementById("no-items-found");
+      if (noItems) noItems.classList.toggle("hidden", hasVisible);
+    });
+  }
 });
